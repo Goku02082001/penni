@@ -3,6 +3,7 @@ import createBlog from "../models/blogModel.js";
 const updateBlog = async (req, res) => {
   try {
     const { id } = req.params;
+    
     const { title, content, tags } = req.body;
 
     const update = await createBlog.findByIdAndUpdate(

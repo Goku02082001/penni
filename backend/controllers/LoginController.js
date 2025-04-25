@@ -8,6 +8,7 @@ const jwt_SecretKey=process.env.JWT_SECRETKEY
 const Login=async(req,res)=>{
    try {
     const {email,password}=req.body
+    console.log(req.body); 
     const userData=await user.findOne({email})
 
     if(!userData)
