@@ -6,6 +6,7 @@ import postBlogRoutes from './routes/postBlogRoutes.js'
 import getBlogRoutes from './routes/postGetRoutes.js'
 import updateBlog from './routes/updateRoutes.js'
 import deleteData from './routes/deleteRoutes.js'
+import getData from './routes/getDataRoutes.js'
 import cors from 'cors'
 const app=express()
 dotenv.config()
@@ -24,6 +25,7 @@ app.use('/api',getBlogRoutes)
 app.use('/api',AuthRoutes)
 app.use('/api',updateBlog)
 app.use('/api',deleteData)
+app.use('/api',getData)
 app.listen(PORT,()=>{
     connectDb()
     console.log(`Connected Successfull localhost: ${PORT}`)
