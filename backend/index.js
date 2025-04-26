@@ -17,7 +17,7 @@ dotenv.config()
 const PORT=process.env.PORT || 5000
 app.use(express.json());
 app.use(cors({
-    origin:"*"
+    origin:"https://penniblog.netlify.app/login"
 }))
 
 app.get('/',(req,res)=>{
