@@ -1,8 +1,8 @@
 import express from "express";
-import UserData from "../controllers/getUserDataController.js";
-
+import getLoggedInUser from "../controllers/getUserDataController.js";
+import verifyToken from "../middelware/getData.js";
 const routes=express.Router()
 
-routes.get('/getuserData',UserData)
+routes.get('/getuserData',verifyToken,getLoggedInUser)
 
 export default routes

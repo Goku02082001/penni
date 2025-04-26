@@ -29,9 +29,11 @@ const Navbar = () => {
               Home
             </li>
           </Link>
+          <Link to='/profile'>
           <li className="hover:text-indigo-400 transition duration-300 cursor-pointer">
             Profile
           </li>
+          </Link>
           <Link to="/blog">
             <li className="hover:text-indigo-400 transition duration-300 cursor-pointer">
               Blogs
