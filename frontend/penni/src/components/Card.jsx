@@ -27,7 +27,7 @@ const Card = ({
     await onEdit(formData);
     setIsEditing(false);
   };
-
+  
   return (
     <div className="max-w-md mx-auto bg-white rounded-2xl shadow-xl overflow-hidden mt-10">
       <div className="p-6 space-y-4">
