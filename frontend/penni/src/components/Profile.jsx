@@ -22,9 +22,9 @@ const Profile = () => {
         }
 
         const res = await axios.get("https://penni.onrender.com/api/getuserData", {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem("token")}`
+              }              
         });
 
         const { data } = res;

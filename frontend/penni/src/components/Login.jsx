@@ -20,6 +20,8 @@ const Login = () => {
         password:form.password
       });
       console.log("Login successful:", res.data);
+      const { token } = res.data;
+      localStorage.setItem("token", token);
       localStorage.setItem("isLoggedIn", true);
       navigate("/");
     } catch (err) {
