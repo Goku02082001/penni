@@ -24,7 +24,7 @@ const Blog = () => {
     setError("");
 
     try {
-      const response = await axios.post("http://localhost:8080/api/postBlog", formData);
+      const response = await axios.post("https://penni.onrender.com/postBlog", formData);
       
       console.log(response.data); 
       setLoading(false);

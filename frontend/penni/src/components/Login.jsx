@@ -15,7 +15,7 @@ const Login = () => {
     console.log(form);
 
     try {
-      const res = await axios.post("http://localhost:8080/api/login",{
+      const res = await axios.post("https://penni.onrender.com/api/login",{
         email:form.email,
         password:form.password
       });

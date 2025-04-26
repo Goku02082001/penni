@@ -17,7 +17,7 @@ const Signup = () => {
     console.log("Submitting Form:", form);
 
     try {
-      const res = await axios.post('http://localhost:8080/api/register', {
+      const res = await axios.post('https://penni.onrender.com/api/register', {
         userName: form.userName,
         email: form.email,
         password: form.password

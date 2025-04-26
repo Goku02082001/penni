@@ -11,7 +11,7 @@ const Home = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get("http://localhost:8080/api/getBlog");
+        const response = await axios.get("https://penni.onrender.com/api/getBlog");
 
         setBlogData(response.data.blog);
         console.log(blogData);
@@ -31,7 +31,7 @@ const Home = () => {
 
     try {
       const response = await axios.patch(
-        `http://localhost:8080/api/updatePost/${id}`,
+        `https://penni.onrender.com/api/updatePost/${id}`,
         updatedData
       );
       console.log("id===>>", updatedData);
@@ -52,7 +52,7 @@ const Home = () => {
 
   const deletePost = async (id) => {
     try {
-      const response = await axios.delete(`http://localhost:8080/api/deletePost/${id}`);
+      const response = await axios.delete(`https://penni.onrender.com/api/deletePost/${id}`);
       alert(response.data.message);
   
       setBlogData(prevData => prevData.filter(item => item._id !== id));
