@@ -7,6 +7,9 @@ const Home = () => {
   const [blogData, setBlogData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [showFilter, setShowFilter] = useState(false);
+const [selectedTag, setSelectedTag] = useState(null);
+
   
   let tags= ["Health", "Technology", "Travel", "Food", "LifeStyle", "Other"];
   useEffect(() => {
@@ -63,7 +66,9 @@ const Home = () => {
     }
   };
   
-  const filterPost=blogData.filter((item)=>item.tags===tags)
+  const filteredBlogs = selectedTag
+  ? blogData.filter((item) => item.tags.includes(selectedTag))
+  : blogData;
 
   if (loading) {
     return (
@@ -88,28 +93,51 @@ const Home = () => {
   }
 
   return (
-    <div>
-      <Navbar />
-      <div>
-     <button className="flex items-center gap-2">
-      <CiFilter/>
-     </button>
-
-      </div>
-      <div className="flex flex-wrap justify-center gap-6 mt-10 px-4">
-        {blogData.map((blog, index) => (
-          <div key={index} className="flex-1 min-w-[300px] max-w-sm">
-            <Card
-              title={blog.title}
-              content={blog.content}
-              tags={blog.tags}
-              onEdit={(updatedData) => editPost(blog._id, updatedData)}
-              onDelete={() => deletePost(blog._id) }
-            />
-          </div>
+  <div>
+  <Navbar />
+  <div className="flex justify-center mt-4 relative">
+    <button
+      className="flex items-center gap-2 bg-gray-200 px-4 py-2 rounded"
+      onClick={() => setShowFilter(!showFilter)}
+    >
+      <CiFilter size={20} />
+      Filter
+    </button>
+    {showFilter && (
+      <div className="absolute top-12 bg-white border rounded shadow-md p-4 z-10">
+        <button
+          className="block text-left w-full px-2 py-1 hover:bg-blue-100"
+          onClick={() => setSelectedTag(null)}
+        >
+          Show All
+        </button>
+        {tags.map((tag) => (
+          <button
+            key={tag}
+            className="block text-left w-full px-2 py-1 hover:bg-blue-100"
+            onClick={() => setSelectedTag(tag)}
+          >
+            {tag}
+          </button>
         ))}
       </div>
-    </div>
+    )}
+  </div>
+  <div className="flex flex-wrap justify-center gap-6 mt-10 px-4">
+    {filteredBlogs.map((blog, index) => (
+      <div key={index} className="flex-1 min-w-[300px] max-w-sm">
+        <Card
+          title={blog.title}
+          content={blog.content}
+          tags={blog.tags}
+          onEdit={(updatedData) => editPost(blog._id, updatedData)}
+          onDelete={() => deletePost(blog._id)}
+        />
+      </div>
+    ))}
+  </div>
+</div>
+
   );
 };
 
