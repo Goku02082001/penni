@@ -24,8 +24,7 @@ const Blog = () => {
     setError("");
 
     try {
-      const response = await axios.post("https://penni.onrender.com/postBlog", formData);
-      
+      const response = await axios.post("https://penni.onrender.com/api/postBlog", formData);
       console.log(response.data); 
       setLoading(false);
       alert("Blog posted successfully!");
