@@ -2,12 +2,12 @@ import React, { useState, useEffect } from "react";
 import Navbar from "./Navbar";
 import Card from "./Card";
 import axios from "axios";
-
+import { CiFilter } from "react-icons/ci";
 const Home = () => {
   const [blogData, setBlogData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-
+  let tags= ["Health", "Technology", "Travel", "Food", "LifeStyle", "Other"];
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -62,7 +62,7 @@ const Home = () => {
     }
   };
   
-  const filterPost=blogData.filter((item)=>item.id===item.id)
+  const filterPost=blogData.filter((item)=>item.tags===tags)
 
   if (loading) {
     return (
@@ -89,6 +89,10 @@ const Home = () => {
   return (
     <div>
       <Navbar />
+      <div>
+      <CiFilter/>
+
+      </div>
       <div className="flex flex-wrap justify-center gap-6 mt-10 px-4">
         {blogData.map((blog, index) => (
           <div key={index} className="flex-1 min-w-[300px] max-w-sm">
