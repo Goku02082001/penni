@@ -7,17 +7,15 @@ const Home = () => {
   const [blogData, setBlogData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [selectedTag, setSelectedTag] = useState(null); 
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await axios.get("https://penni.onrender.com/api/getBlog");
-
         setBlogData(response.data.blog);
-        console.log(blogData);
       } catch (err) {
         setError(err.message);
-        console.error("Error fetching blog data:", err);
       } finally {
         setLoading(false);
       }
@@ -27,25 +25,18 @@ const Home = () => {
   }, []);
 
   const editPost = async (id, updatedData) => {
-    console.log("update data ===>>", updatedData);
-
     try {
       const response = await axios.patch(
         `https://penni.onrender.com/api/updatePost/${id}`,
         updatedData
       );
-      console.log("id===>>", updatedData);
-
-      console.log("Blog updated successfully:", response.data);
       alert("Blog updated successfully!");
-
       setBlogData((prevData) =>
         prevData.map((blog) =>
           blog._id === id ? { ...blog, ...updatedData } : blog
         )
       );
     } catch (error) {
-      console.error("Error updating blog:", error);
       alert("Failed to update blog.");
     }
   };
@@ -54,32 +45,25 @@ const Home = () => {
     try {
       const response = await axios.delete(`https://penni.onrender.com/api/deletePost/${id}`);
       alert(response.data.message);
-  
       setBlogData(prevData => prevData.filter(item => item._id !== id));
     } catch (error) {
-      console.error("Delete failed:", error);
       alert("Failed to delete post");
     }
   };
-  
 
-  if (loading) {
+ 
+  const filteredBlogs = selectedTag
+    ? blogData.filter(blog => blog.tags.includes(selectedTag))
+    : blogData;
+
+  const uniqueTags = [...new Set(blogData.flatMap(blog => blog.tags))];
+
+  if (loading || error) {
     return (
       <div>
         <Navbar />
         <div className="flex justify-center items-center h-64">
-          <p>Loading blog data...</p>
-        </div>
-      </div>
-    );
-  }
-
-  if (error) {
-    return (
-      <div>
-        <Navbar />
-        <div className="flex justify-center items-center h-64">
-          <p className="text-red-500">Error: {error}</p>
+          <p>{loading ? "Loading blog data..." : `Error: ${error}`}</p>
         </div>
       </div>
     );
@@ -88,15 +72,36 @@ const Home = () => {
   return (
     <div>
       <Navbar />
+      <div className="flex flex-wrap gap-4 justify-center mt-4">
+        <button
+          onClick={() => setSelectedTag(null)}
+          className="bg-gray-300 px-4 py-2 rounded"
+        >
+          Show All
+        </button>
+        {uniqueTags.map(tag => (
+          <button
+            key={tag}
+            onClick={() => setSelectedTag(tag)}
+            className={`px-4 py-2 rounded ${
+              selectedTag === tag ? "bg-blue-600 text-white" : "bg-blue-200"
+            }`}
+          >
+            {tag}
+          </button>
+        ))}
+      </div>
+
+      {/* Blog cards */}
       <div className="flex flex-wrap justify-center gap-6 mt-10 px-4">
-        {blogData.map((blog, index) => (
+        {filteredBlogs.map((blog, index) => (
           <div key={index} className="flex-1 min-w-[300px] max-w-sm">
             <Card
               title={blog.title}
               content={blog.content}
               tags={blog.tags}
               onEdit={(updatedData) => editPost(blog._id, updatedData)}
-              onDelete={() => deletePost(blog._id) }
+              onDelete={() => deletePost(blog._id)}
             />
           </div>
         ))}
