@@ -93,7 +93,7 @@ const Home = () => {
   return (
     <div>
       <Navbar />
-      <div className="flex justify-center mt-4 relative ml-[150px]">
+      <div className="flex justify-center mt-4 relative ml-[550px]">
     <button
       className="flex items-center gap-2 bg-gray-200 px-4 py-2 rounded"
       onClick={() => setShowFilter(!showFilter)}
