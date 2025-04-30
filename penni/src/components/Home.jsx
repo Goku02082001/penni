@@ -64,7 +64,7 @@ const Home = () => {
     }
   };
   
-  const filterPost=selectedTag
+  const filteredBlogs=selectedTag
   ? blogData.filter((item) => item.tags.includes(selectedTag))
   : blogData;
 
