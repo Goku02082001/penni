@@ -95,7 +95,7 @@ const [selectedTag, setSelectedTag] = useState(null);
   return (
   <div>
   <Navbar />
-  <div className="flex justify-center mt-4 relative">
+  <div className="flex justify-center mt-4 relative ml-[1100px]">
     <button
       className="flex items-center gap-2 bg-gray-200 px-4 py-2 rounded"
       onClick={() => setShowFilter(!showFilter)}
