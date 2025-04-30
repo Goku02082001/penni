@@ -8,6 +8,7 @@ const Home = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [selectedTag, setSelectedTag] = useState(null);
+  const [showFilter, setShowFilter] = useState(false);
   let tags= ["Health", "Technology", "Travel", "Food", "LifeStyle", "Other"];
   useEffect(() => {
     const fetchData = async () => {
@@ -121,17 +122,17 @@ const Home = () => {
     )}
   </div>
       <div className="flex flex-wrap justify-center gap-6 mt-10 px-4">
-        {blogData.map((blog, index) => (
-          <div key={index} className="flex-1 min-w-[300px] max-w-sm">
-            <Card
-              title={blog.title}
-              content={blog.content}
-              tags={blog.tags}
-              onEdit={(updatedData) => editPost(blog._id, updatedData)}
-              onDelete={() => deletePost(blog._id) }
-            />
-          </div>
-        ))}
+      {filteredBlogs.map((blog, index) => (
+      <div key={index} className="flex-1 min-w-[300px] max-w-sm">
+        <Card
+          title={blog.title}
+          content={blog.content}
+          tags={blog.tags}
+          onEdit={(updatedData) => editPost(blog._id, updatedData)}
+          onDelete={() => deletePost(blog._id)}
+        />
+      </div>
+    ))}
       </div>
     </div>
   );
