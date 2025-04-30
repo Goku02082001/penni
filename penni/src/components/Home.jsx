@@ -90,7 +90,9 @@ const Home = () => {
     <div>
       <Navbar />
       <div>
+     <button className="flex items-center gap-2">
       <CiFilter/>
+     </button>
 
       </div>
       <div className="flex flex-wrap justify-center gap-6 mt-10 px-4">
